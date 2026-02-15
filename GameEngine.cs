@@ -8,5 +8,24 @@ namespace GameEngine_SaveynMarine
 {
     internal class GameEngine
     {
+        public void Run()
+        {
+
+        }
+
+        private void ProcesInput()
+        {
+
+        }
+
+        private void Update()
+        {
+
+        }
+
+        private void Render()
+        {
+
+        }
     }
 }
