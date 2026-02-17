@@ -11,6 +11,7 @@ namespace GameEngine_SaveynMarine
 {
     internal class GameEngine
     {
+        private float _playerSpeed = 10;
         Player _player = new Player();
         private bool _shouldQuit;
         private readonly Stopwatch _stopwatch = new Stopwatch();
@@ -74,7 +75,16 @@ namespace GameEngine_SaveynMarine
             }
         }
         
-
+        private void FixedUpdate(float fixed_elapsed_time)
+        {
+            /*Vector2 player_position = _player.GetPosition();
+            Vector2 player_direction = _player.GetDirection();
+            Vector2 new_position = new Vector2();
+            // Calcul de la nouvelle position 
+            new_position.SetX(player_position.GetX() + player_direction.GetX() * fixed_elapsed_time * _playerSpeed);
+            new_position.SetY(player_position.GetY() + player_direction.GetY() * fixed_elapsed_time * _playerSpeed);
+            _player.SetPosition(new_position); */
+        }
         private void Update(float elapsed_time)
         {
 

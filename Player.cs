@@ -15,7 +15,7 @@ namespace GameEngine_SaveynMarine
 
         public Player ()
         {
-
+            
         }
 
         public void Render()
@@ -30,13 +30,20 @@ namespace GameEngine_SaveynMarine
             }
             
         }
-
+        /*public float GetDirection()
+        {
+            
+        }*/
         public void SetDirection(Vector2 new_direction)
         {
             _currentDirection = new_direction;
         }
 
         public Vector2 GetPosition()
+        {
+            return _position;
+        }
+        public Vector2 SetPosition(Vector2 new_position)
         {
             return _position;
         }
