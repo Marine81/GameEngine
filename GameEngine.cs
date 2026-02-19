@@ -33,7 +33,7 @@ namespace GameEngine_SaveynMarine
 
                 while (lag >= FIXED_FRAME_TIME)
                 {
-                    Update(FIXED_FRAME_TIME); // FIXED_FRAME_TIME doit être plus grand que le temps nécessaire à Update même sur les machines lentes
+                    Update(FIXED_FRAME_TIME); 
                     lag -= FIXED_FRAME_TIME;
                 }
 
@@ -99,7 +99,7 @@ namespace GameEngine_SaveynMarine
 
         private float GetCurrentTime()
         {
-            return _stopwatch.ElapsedMilliseconds / 1000.0f; // .0f EST IMPORTANT
+            return _stopwatch.ElapsedMilliseconds / 1000.0f; 
         }
     }
 }

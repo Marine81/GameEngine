@@ -45,7 +45,7 @@ namespace GameEngine_SaveynMarine
         }
         public Vector2 SetPosition(Vector2 new_position)
         {
-            return _position;
+            return _position = new_position;
         }
     }
 }
