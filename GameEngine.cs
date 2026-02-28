@@ -11,6 +11,8 @@ namespace GameEngine_SaveynMarine
 {
     public class GameEngine
     {
+        Level _level = new Level();
+
         private List<GameObject> _gameObjectTable = new List<GameObject>();
 
         private List<GameObject> _gameObjectToAddTable = new List<GameObject>();
