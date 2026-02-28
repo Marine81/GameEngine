@@ -9,8 +9,13 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal class GameEngine
+    public class GameEngine
     {
+        private List<GameObject> _gameObjectTable = new List<GameObject>();
+
+        private List<GameObject> _gameObjectToAddTable = new List<GameObject>();
+        private List<GameObject> _gameObjectToRemoveTable = new List<GameObject>();
+
         private float _playerSpeed = 10;
         Player _player = new Player();
         private bool _shouldQuit;
@@ -42,6 +47,33 @@ namespace GameEngine_SaveynMarine
                 last_time = loop_start_time;
             }
         }
+
+        public void AddGameObject(GameObject game_object)
+        {
+            _gameObjectToAddTable.Add(game_object);
+        }
+
+        public void RemoveGameObject(GameObject game_object)
+        {
+            _gameObjectToRemoveTable.Add(game_object);
+        }
+
+        private void UpdateGameObjectTable()
+        {
+            foreach (GameObject game_object in _gameObjectToAddTable)
+            {
+                _gameObjectTable.Add(game_object); //liste principale
+            }
+
+            foreach (GameObject game_object in _gameObjectToRemoveTable)
+            {
+                _gameObjectTable.Remove(game_object); // retire les obj de la liste principale
+            }
+
+            _gameObjectToAddTable.Clear();
+            _gameObjectToRemoveTable.Clear();
+        }
+
 
         private void ProcessInput()
         {

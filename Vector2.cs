@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal class Vector2
+    public class Vector2
     {
         private float _x;
         private float _y;

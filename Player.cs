@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal class Player
+    public class Player
     {
         private Vector2 _position;
         private string _renderGraphic = "@";
