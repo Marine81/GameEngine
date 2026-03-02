@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public class Player 
+    public class Player : GameObject
     {
         private Vector2 _position = new Vector2(0, 0);
         private string _renderGraphic = "@";
         private Vector2 _direction = new Vector2(0,0); //stocke l'intention de mouvement
         private float _speed = 10;
 
+        public Player(GameEngine game_engine) : base(game_engine)
+        {
+        }
 
         public void Render()
         {
@@ -41,6 +44,21 @@ namespace GameEngine_SaveynMarine
         public float GetSpeed()
         {
             return _speed;
+        }
+
+        public override void Update(float elapsed_time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void FixedUpdate(float elapsed_time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void HandleInput(ConsoleKeyInfo player_command)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace GameEngine_SaveynMarine
 {
     public class GameEngine
     {
-        Level _level = new Level();
+       // Level _level = new Level();
 
         private List<GameObject> _gameObjectTable = new List<GameObject>();
 
@@ -146,7 +146,7 @@ namespace GameEngine_SaveynMarine
             _player.SetDirection(new Vector2(0, 0));
         }
 
-        }
+        
         private void Update(float elapsed_time)
         {
 

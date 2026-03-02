@@ -15,5 +15,8 @@ namespace GameEngine_SaveynMarine
         {
             game_engine.AddGameObject(this);
         }
+
+        public abstract void HandleInput(ConsoleKeyInfo player_command);
+
     }
 }
