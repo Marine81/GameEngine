@@ -18,14 +18,13 @@ namespace GameEngine_SaveynMarine
         private List<GameObject> _gameObjectToAddTable = new List<GameObject>();
         private List<GameObject> _gameObjectToRemoveTable = new List<GameObject>();
 
-        private float _playerSpeed = 10;
+        private static readonly float FIXED_FRAME_TIME = 1.0f / 60.0f;
         Player _player = new Player();
-        private bool _shouldQuit;
+        private bool _shouldQuit = false;
         private readonly Stopwatch _stopwatch = new Stopwatch();
         public void Run()
         {
             _stopwatch.Start();
-            const float FIXED_FRAME_TIME = 20 / 1000.0f;
             float lag = 0.0f;
             float last_time = GetCurrentTime();
 
@@ -34,7 +33,7 @@ namespace GameEngine_SaveynMarine
                 float loop_start_time = GetCurrentTime();
                 float elapsed_time = loop_start_time - last_time;
 
-                lag += elapsed_time;
+               lag += elapsed_time;
 
                 ProcessInput();
 
@@ -43,11 +42,12 @@ namespace GameEngine_SaveynMarine
                     Update(FIXED_FRAME_TIME); 
                     lag -= FIXED_FRAME_TIME;
                 }
-
+                Update(elapsed_time);//realtime boucle
                 Render();
 
                 last_time = loop_start_time;
             }
+            Console.WriteLine("Goodbye!");
         }
 
         public void AddGameObject(GameObject game_object)
@@ -79,10 +79,12 @@ namespace GameEngine_SaveynMarine
 
         private void ProcessInput()
         {
-            if (Console.KeyAvailable)
+            Vector2 new_direction = new Vector2(0, 0);
+
+            while (Console.KeyAvailable)
             {
                 ConsoleKeyInfo player_command = Console.ReadKey(true);
-
+            
                 if (player_command.Key == ConsoleKey.LeftArrow)
                 {
                     _player.SetDirection(new Vector2(-1, 0));
@@ -107,17 +109,43 @@ namespace GameEngine_SaveynMarine
                     _shouldQuit = true;
                 }
             }
+            _player.SetDirection(new_direction);
         }
         
         private void FixedUpdate(float fixed_elapsed_time)
         {
-            /*Vector2 player_position = _player.GetPosition();
+            Vector2 player_position = _player.GetPosition();
             Vector2 player_direction = _player.GetDirection();
-            Vector2 new_position = new Vector2();
-            // Calcul de la nouvelle position 
-            new_position.SetX(player_position.GetX() + player_direction.GetX() * fixed_elapsed_time * _playerSpeed);
-            new_position.SetY(player_position.GetY() + player_direction.GetY() * fixed_elapsed_time * _playerSpeed);
-            _player.SetPosition(new_position); */
+            float player_speed = _player.GetSpeed();
+
+            Vector2 new_position = new Vector2(player_position.GetX() + player_direction.GetX() * fixed_elapsed_time * player_speed,
+                player_position.GetY() + player_direction.GetY() * fixed_elapsed_time * player_speed);
+
+            _player.SetPosition(new_position);
+
+            if (new_position.GetX() < 0)
+            {
+                new_position.SetX(0);
+            }
+            else if (new_position.GetX() >= Console.WindowWidth)
+            {
+                new_position.SetX(Console.WindowWidth - 1);
+            }
+
+            if (new_position.GetY() < 0)
+            {
+                new_position.SetY(0);
+            }
+            else if (new_position.GetY() >= Console.WindowHeight)
+            {
+                new_position.SetY(Console.WindowHeight - 1);
+            }
+
+            _player.SetPosition(new_position);
+
+            _player.SetDirection(new Vector2(0, 0));
+        }
+
         }
         private void Update(float elapsed_time)
         {
@@ -128,6 +156,7 @@ namespace GameEngine_SaveynMarine
         {
            Console.Clear();
             _player.Render();
+            Thread.Sleep(10);
 
         }
 

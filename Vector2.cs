@@ -21,9 +21,9 @@ namespace GameEngine_SaveynMarine
             return _x;
         }
 
-        public float SetX()
+        public void SetX(float x)
         {
-            return _x;
+            _x = x;
         }
 
         public float GetY()
@@ -31,9 +31,9 @@ namespace GameEngine_SaveynMarine
             return _y;
         }
 
-        public float SetY()
+        public void SetY(float y)
         {
-            return _y;
+           _y = y;
         }
     }
 }

@@ -8,44 +8,39 @@ namespace GameEngine_SaveynMarine
 {
     public class Player 
     {
-        private Vector2 _position;
+        private Vector2 _position = new Vector2(0, 0);
         private string _renderGraphic = "@";
-        private Vector2 _currentDirection; //stocke l'intention de mouvement
+        private Vector2 _direction = new Vector2(0,0); //stocke l'intention de mouvement
         private float _speed = 10;
 
-        public Player ()
-        {
-            
-        }
 
         public void Render()
         {
-            int x = (int)_position.GetX();
-            int y = (int)_position.GetY();
-            
-            if( x <= 0 && y >= 0 && x < Console.WindowWidth && y < Console.WindowHeight)
-            {
-                Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
-                Console.Write(_renderGraphic);
-            }
-            
+            Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
+            Console.Write(_renderGraphic);
         }
-        /*public float GetDirection()
+        public Vector2 GetDirection()
         {
-            
-        }*/
+            return _direction;
+        }
         public void SetDirection(Vector2 new_direction)
         {
-            _currentDirection = new_direction;
+            _direction = new_direction;
         }
 
         public Vector2 GetPosition()
         {
             return _position;
         }
-        public Vector2 SetPosition(Vector2 new_position)
+
+        public void SetPosition(Vector2 new_position)
         {
-            return _position = new_position;
+            _position = new_position;
+        }
+        
+        public float GetSpeed()
+        {
+            return _speed;
         }
     }
 }
