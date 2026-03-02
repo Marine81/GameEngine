@@ -21,6 +21,11 @@ namespace GameEngine_SaveynMarine
             throw new NotImplementedException();
         }
 
+        public override void HandleInput(ConsoleKeyInfo player_command)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Update(float elapsed_time)
         {
             throw new NotImplementedException();
