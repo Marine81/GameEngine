@@ -11,7 +11,6 @@ namespace GameEngine_SaveynMarine
 {
     public class GameEngine
     {
-       // Level _level = new Level();
 
         private List<GameObject> _gameObjectTable = new List<GameObject>();
 
@@ -25,7 +24,8 @@ namespace GameEngine_SaveynMarine
 
         public GameEngine()
         {
-            new Player(this);
+            Level currentLevel = new Level(this);
+            new Player(this, currentLevel);
         }
         public void Run()
         {
