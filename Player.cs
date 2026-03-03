@@ -15,6 +15,7 @@ namespace GameEngine_SaveynMarine
 
         public Player(GameEngine game_engine) : base(game_engine)
         {
+            game_engine.AddGameObject(this);
         }
 
         public void Render()
@@ -53,12 +54,59 @@ namespace GameEngine_SaveynMarine
 
         public override void FixedUpdate(float elapsed_time)
         {
-            throw new NotImplementedException();
+            Vector2 player_position = GetPosition();
+            Vector2 player_direction = GetDirection();
+            float player_speed = GetSpeed();
+
+            Vector2 new_position = new Vector2(player_position.GetX() + player_direction.GetX() * elapsed_time * player_speed,
+                player_position.GetY() + player_direction.GetY() * elapsed_time * player_speed);
+
+            SetPosition(new_position);
+
+            if (new_position.GetX() < 0)
+            {
+                new_position.SetX(0);
+            }
+            else if (new_position.GetX() >= Console.WindowWidth)
+            {
+                new_position.SetX(Console.WindowWidth - 1);
+            }
+
+            if (new_position.GetY() < 0)
+            {
+                new_position.SetY(0);
+            }
+            else if (new_position.GetY() >= Console.WindowHeight)
+            {
+                new_position.SetY(Console.WindowHeight - 1);
+            }
+
+            _player.SetPosition(new_position);
+
+            _player.SetDirection(new Vector2(0, 0));
         }
 
         public override void HandleInput(ConsoleKeyInfo player_command)
         {
-            throw new NotImplementedException();
+            if (player_command.Key == ConsoleKey.LeftArrow)
+            {
+                SetDirection(new Vector2(-1, 0));
+            }
+
+            else if (player_command.Key == ConsoleKey.RightArrow)
+            {
+               SetDirection(new Vector2(1, 0));
+            }
+
+            else if (player_command.Key == ConsoleKey.UpArrow)
+            {
+                SetDirection(new Vector2(0, -1));
+            }
+
+            else if (player_command.Key == ConsoleKey.DownArrow)
+            {
+                SetDirection(new Vector2(0, 1));
+            }
         }
     }
 }

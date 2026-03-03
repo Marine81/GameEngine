@@ -19,9 +19,14 @@ namespace GameEngine_SaveynMarine
         private List<GameObject> _gameObjectToRemoveTable = new List<GameObject>();
 
         private static readonly float FIXED_FRAME_TIME = 1.0f / 60.0f;
-        Player _player = new Player();
+      
         private bool _shouldQuit = false;
         private readonly Stopwatch _stopwatch = new Stopwatch();
+
+        public GameEngine()
+        {
+            new Player(this);
+        }
         public void Run()
         {
             _stopwatch.Start();
@@ -84,8 +89,18 @@ namespace GameEngine_SaveynMarine
             while (Console.KeyAvailable)
             {
                 ConsoleKeyInfo player_command = Console.ReadKey(true);
-            
-                if (player_command.Key == ConsoleKey.LeftArrow)
+
+                if (player_command.Key == ConsoleKey.Escape)
+                {
+                    _shouldQuit = true;
+                }
+
+                foreach(GameObject onj in _gameObjectTable)
+                {
+                    object.HandleInput(player_command);
+                }
+
+                else if (player_command.Key == ConsoleKey.LeftArrow)
                 {
                     _player.SetDirection(new Vector2(-1, 0));
                 }
@@ -104,17 +119,14 @@ namespace GameEngine_SaveynMarine
                 {
                     _player.SetDirection(new Vector2(0,1));
                 }
-                else if (player_command.Key == ConsoleKey.Escape)
-                {
-                    _shouldQuit = true;
-                }
+                
             }
             _player.SetDirection(new_direction);
         }
         
         private void FixedUpdate(float fixed_elapsed_time)
         {
-            Vector2 player_position = _player.GetPosition();
+           /* Vector2 player_position = _player.GetPosition();
             Vector2 player_direction = _player.GetDirection();
             float player_speed = _player.GetSpeed();
 
@@ -143,7 +155,7 @@ namespace GameEngine_SaveynMarine
 
             _player.SetPosition(new_position);
 
-            _player.SetDirection(new Vector2(0, 0));
+            _player.SetDirection(new Vector2(0, 0)); */
         }
 
         
@@ -155,7 +167,7 @@ namespace GameEngine_SaveynMarine
         private void Render()
         {
            Console.Clear();
-            _player.Render();
+           //_player.Render();
             Thread.Sleep(10);
 
         }
