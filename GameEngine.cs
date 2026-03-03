@@ -84,78 +84,12 @@ namespace GameEngine_SaveynMarine
 
         private void ProcessInput()
         {
-            Vector2 new_direction = new Vector2(0, 0);
-
-            while (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo player_command = Console.ReadKey(true);
-
-                if (player_command.Key == ConsoleKey.Escape)
-                {
-                    _shouldQuit = true;
-                }
-
-                foreach(GameObject onj in _gameObjectTable)
-                {
-                    object.HandleInput(player_command);
-                }
-
-                else if (player_command.Key == ConsoleKey.LeftArrow)
-                {
-                    _player.SetDirection(new Vector2(-1, 0));
-                }
-
-                else if (player_command.Key == ConsoleKey.RightArrow)
-                {
-                    _player.SetDirection(new Vector2(1, 0));
-                }
-
-                else if (player_command.Key == ConsoleKey.UpArrow)
-                {
-                    _player.SetDirection(new Vector2(0, -1));
-                }
-
-                else if(player_command.Key == ConsoleKey.DownArrow)
-                {
-                    _player.SetDirection(new Vector2(0,1));
-                }
-                
-            }
-            _player.SetDirection(new_direction);
+           
         }
         
         private void FixedUpdate(float fixed_elapsed_time)
         {
-           /* Vector2 player_position = _player.GetPosition();
-            Vector2 player_direction = _player.GetDirection();
-            float player_speed = _player.GetSpeed();
-
-            Vector2 new_position = new Vector2(player_position.GetX() + player_direction.GetX() * fixed_elapsed_time * player_speed,
-                player_position.GetY() + player_direction.GetY() * fixed_elapsed_time * player_speed);
-
-            _player.SetPosition(new_position);
-
-            if (new_position.GetX() < 0)
-            {
-                new_position.SetX(0);
-            }
-            else if (new_position.GetX() >= Console.WindowWidth)
-            {
-                new_position.SetX(Console.WindowWidth - 1);
-            }
-
-            if (new_position.GetY() < 0)
-            {
-                new_position.SetY(0);
-            }
-            else if (new_position.GetY() >= Console.WindowHeight)
-            {
-                new_position.SetY(Console.WindowHeight - 1);
-            }
-
-            _player.SetPosition(new_position);
-
-            _player.SetDirection(new Vector2(0, 0)); */
+          
         }
 
         

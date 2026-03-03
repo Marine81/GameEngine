@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal class Level : GameObject
+    public class Level : GameObject
     {
         private int _xSize = Console.WindowWidth;
         private int _ySize = Console.WindowHeight;
@@ -14,6 +14,15 @@ namespace GameEngine_SaveynMarine
         public Level(GameEngine game_engine) : base(game_engine)
         {
             
+        }
+
+        public int GetXSize()
+        {
+            return _xSize;
+        }
+        public int GetYSize()
+        {
+            return _ySize;
         }
 
         public override void FixedUpdate(float elapsed_time)

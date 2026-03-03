@@ -8,13 +8,15 @@ namespace GameEngine_SaveynMarine
 {
     public class Player : GameObject
     {
+        private Level _level;
         private Vector2 _position = new Vector2(0, 0);
         private string _renderGraphic = "@";
         private Vector2 _direction = new Vector2(0,0); //stocke l'intention de mouvement
         private float _speed = 10;
 
-        public Player(GameEngine game_engine) : base(game_engine)
+        public Player(GameEngine game_engine, Level level) : base(game_engine)
         {
+            _level = level;
             game_engine.AddGameObject(this);
         }
 
@@ -67,27 +69,29 @@ namespace GameEngine_SaveynMarine
             {
                 new_position.SetX(0);
             }
-            else if (new_position.GetX() >= Console.WindowWidth)
+            else if (new_position.GetX() >= _level.GetXSize())
             {
-                new_position.SetX(Console.WindowWidth - 1);
+                new_position.SetX(_level.GetXSize() - 1);
             }
 
             if (new_position.GetY() < 0)
             {
                 new_position.SetY(0);
             }
-            else if (new_position.GetY() >= Console.WindowHeight)
+            else if (new_position.GetY() >= _level.GetYSize())
             {
-                new_position.SetY(Console.WindowHeight - 1);
+                new_position.SetY(_level.GetYSize() - 1);
             }
 
-            _player.SetPosition(new_position);
+            SetPosition(new_position);
 
-            _player.SetDirection(new Vector2(0, 0));
+            SetDirection(new Vector2(0, 0));
         }
 
         public override void HandleInput(ConsoleKeyInfo player_command)
         {
+            Vector2 new_direction = new Vector2(0, 0);
+
             if (player_command.Key == ConsoleKey.LeftArrow)
             {
                 SetDirection(new Vector2(-1, 0));
@@ -107,6 +111,7 @@ namespace GameEngine_SaveynMarine
             {
                 SetDirection(new Vector2(0, 1));
             }
+            SetDirection(new_direction);
         }
     }
 }
