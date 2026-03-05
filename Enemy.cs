@@ -9,9 +9,7 @@ namespace GameEngine_SaveynMarine
     public class Enemy : GameObject
     {
         private Level _level;
-        private Vector2 _position = new Vector2(0, 0);
         private string _renderGraphic = "E";
-        private Vector2 _direction = new Vector2(0, 0); //stocke l'intention de mouvement
         private float _speed = 10;
 
         private static Random _random = new Random();
@@ -36,24 +34,7 @@ namespace GameEngine_SaveynMarine
             return _speed;
         }
 
-        public Vector2 GetPosition()
-        {
-            return _position;
-        }
-
-        public void SetPosition(Vector2 new_position)
-        {
-            _position = new_position;
-        }
-        public Vector2 GetDirection()
-        {
-            return _direction;
-        }
-
-        public void SetDirection(Vector2 new_direction)
-        {
-            _direction = new_direction;
-        }
+        
         public override void FixedUpdate(float elapsed_time)
         {
             Vector2 enemy_position = GetPosition();
@@ -98,6 +79,12 @@ namespace GameEngine_SaveynMarine
         public override void Update(float elapsed_time)
         {
             throw new NotImplementedException();
+        }
+
+        public override void Render()
+        {
+            Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
+            Console.Write(_renderGraphic);
         }
     }
 }

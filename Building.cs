@@ -8,7 +8,7 @@ namespace GameEngine_SaveynMarine
 {
     public class Building : GameObject
     {
-        private float _time;
+        protected float _elapsedTime;
         private string _renderGraphic = "B";
        
 
@@ -18,17 +18,26 @@ namespace GameEngine_SaveynMarine
 
         public override void FixedUpdate(float elapsed_time)
         {
-            Console.Write($"{_renderGraphic}[{_elapsedTime:F1}]");
+            
         }
 
         public override void HandleInput(ConsoleKeyInfo player_command)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(float elapsed_time)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public override void Render()
+        {
+            Console.SetCursorPosition((int)GetPosition().GetX(), (int)GetPosition().GetY());
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{_renderGraphic}[{_elapsedTime:F1}]");
+            Console.ResetColor();
+        
         }
     }
 }

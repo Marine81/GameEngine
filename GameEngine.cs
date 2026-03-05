@@ -50,6 +50,7 @@ namespace GameEngine_SaveynMarine
                     lag -= FIXED_FRAME_TIME;
                 }
                 Update(elapsed_time);//realtime boucle
+                UpdateGameObjectTable();
                 Render();
 
                 last_time = loop_start_time;
@@ -102,10 +103,12 @@ namespace GameEngine_SaveynMarine
 
         private void Render()
         {
-           Console.Clear();
-           //_player.Render();
+            Console.Clear();
             Thread.Sleep(10);
-
+            foreach(GameObject game_object in _gameObjectTable)
+            {
+                game_object.Render();
+            }
         }
 
         private float GetCurrentTime()

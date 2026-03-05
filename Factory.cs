@@ -8,31 +8,46 @@ namespace GameEngine_SaveynMarine
 {
     public class Factory : Building
     {
-        private Level _level;
-        private Vector2 _position = new Vector2(0, 0);
-        private string _renderGraphic = "F";
-        private Vector2 _direction = new Vector2(0, 0);
       
-        public Factory(GameEngine game_engine) : base(game_engine)
-        { }
-        public Vector2 GetPosition()
+        private string _renderGraphic = "F";
+        private float _conversion;
+        private int _requiredRessources;
+        private int _producedRessources;
+
+        private int _stockRessources = 100;
+        private int _stockProduct = 0;
+
+
+        public Factory(float conversion, int required_ressources, int produced_ressources, GameEngine game_engine) : base(game_engine)
         {
-            return _position;
+            _conversion = conversion;
+            _requiredRessources = required_ressources;
+            _producedRessources = produced_ressources;
         }
 
-        public void SetPosition(Vector2 new_position)
+        public override void FixedUpdate(float elapsed_time)
         {
-            _position = new_position;
-        }
-        public Vector2 GetDirection()
-        {
-            return _direction;
+            base.FixedUpdate(elapsed_time);
+
+            if(_elapsedTime >= _conversion)
+            {
+                if(_stockRessources >= _requiredRessources)
+                {
+                    _stockRessources -= _requiredRessources; //consomation ressources
+                    _stockProduct += _producedRessources; // creation produis fini
+                }
+                _elapsedTime -= _conversion;
+            }
         }
 
-        public void SetDirection(Vector2 new_direction)
+        public override void Render()
         {
-            _direction = new_direction;
-        } 
+            Console.SetCursorPosition((int)GetPosition().GetX(), (int)GetPosition().GetY());
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"F[{_stockRessources} ->{_stockProduct}]");
+            Console.ResetColor();
+
+        }
     }
     
 }

@@ -8,6 +8,7 @@ namespace GameEngine_SaveynMarine
 {
     public class Level : GameObject
     {
+        private GameEngine _gameEngine;
         private int _xSize = Console.WindowWidth;
         private int _ySize = Console.WindowHeight;
 
@@ -44,7 +45,7 @@ namespace GameEngine_SaveynMarine
 
             if(_timer >= _timeNextSpawn)
             {
-                new Enemy(game_engine, this);
+                new Enemy(_gameEngine, this);
                 _timer = 0f;
                 Random random = new Random();
                 _timeNextSpawn = (float)(random.NextDouble()*5.0+5.0);
@@ -53,12 +54,17 @@ namespace GameEngine_SaveynMarine
 
         public override void HandleInput(ConsoleKeyInfo player_command)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(float elapsed_time)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public override void Render()
+        {
+           
         }
     }
 }

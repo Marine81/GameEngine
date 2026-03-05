@@ -8,30 +8,34 @@ namespace GameEngine_SaveynMarine
 {
     public class Generator : Building
     {
-        private Level _level;
-        private Vector2 _position = new Vector2(0, 0);
-        private string _renderGraphic = "F";
-        private Vector2 _direction = new Vector2(0, 0);
-        public Generator(GameEngine game_engine) : base(game_engine)
+        private float _production;
+        private int _ressourceCount = 0;
+        private string OutputCount = "G";
+        
+        public Generator(float production,GameEngine game_engine) : base(game_engine)
         {
-        }
-        public Vector2 GetPosition()
-        {
-            return _position;
+            _production = production;
         }
 
-        public void SetPosition(Vector2 new_position)
+        public override void FixedUpdate(float fixed_elapsed_time)
         {
-            _position = new_position;
-        }
-        public Vector2 GetDirection()
-        {
-            return _direction;
+            base.FixedUpdate(fixed_elapsed_time);
+
+            if (_elapsedTime >= _production)
+            {
+                _ressourceCount++;
+            }
+
+            _elapsedTime -= _production;
         }
 
-        public void SetDirection(Vector2 new_direction)
+        public override void Render()
         {
-            _direction = new_direction;
+            Console.SetCursorPosition((int)GetPosition().GetX(), (int)GetPosition().GetY());
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"G[{_ressourceCount}]");
+            Console.ResetColor();
+
         }
     }
 }
