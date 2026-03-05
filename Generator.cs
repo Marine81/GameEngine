@@ -6,10 +6,32 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal class Generator : Building
+    public class Generator : Building
     {
+        private Level _level;
+        private Vector2 _position = new Vector2(0, 0);
+        private string _renderGraphic = "F";
+        private Vector2 _direction = new Vector2(0, 0);
         public Generator(GameEngine game_engine) : base(game_engine)
         {
+        }
+        public Vector2 GetPosition()
+        {
+            return _position;
+        }
+
+        public void SetPosition(Vector2 new_position)
+        {
+            _position = new_position;
+        }
+        public Vector2 GetDirection()
+        {
+            return _direction;
+        }
+
+        public void SetDirection(Vector2 new_direction)
+        {
+            _direction = new_direction;
         }
     }
 }
