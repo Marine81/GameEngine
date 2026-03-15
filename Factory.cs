@@ -10,44 +10,74 @@ namespace GameEngine_SaveynMarine
     {
       
         private string _renderGraphic = "F";
-        private float _conversion;
-        private int _requiredRessources;
-        private int _producedRessources;
+        private Vector2 _position = new Vector2(0, 0);
 
-        private int _stockRessources = 100;
-        private int _stockProduct = 0;
+        private float _elapsedConsumptionTime;
+        private float _elapsedProductionTime;
+
+        private int _inputCount;
+
+        private readonly float _consumptionRate;
+        private readonly float _productionRate;
+
+        private int _resourceCount;
 
 
-        public Factory(float conversion, int required_ressources, int produced_ressources, GameEngine game_engine) : base(game_engine)
+
+        public Factory(int input_count, int consumption_rate, int production_rate, GameEngine game_engine) : base(game_engine)
         {
-            _conversion = conversion;
-            _requiredRessources = required_ressources;
-            _producedRessources = produced_ressources;
+            _inputCount = input_count;
+            _consumptionRate = consumption_rate;
+            _productionRate = production_rate;
         }
 
-        public override void FixedUpdate(float elapsed_time)
+        public override void HandleInput(ConsoleKeyInfo player_command)
         {
-            base.FixedUpdate(elapsed_time);
 
-            if(_elapsedTime >= _conversion)
+        }
+
+        public void SetPosition(Vector2 position)
+        {
+            _position = position;
+        }
+
+        public override void Update(float elapsed_time)
+        {
+
+        }
+
+        public override void FixedUpdate(float fixed_elapsed_time)
+        {
+            if (_inputCount > 0)
             {
-                if(_stockRessources >= _requiredRessources)
+                _elapsedConsumptionTime += fixed_elapsed_time;
+
+                if (_elapsedConsumptionTime >= _consumptionRate)
                 {
-                    _stockRessources -= _requiredRessources; //consomation ressources
-                    _stockProduct += _producedRessources; // creation produis fini
+                    _inputCount--;
+                    _elapsedConsumptionTime = 0;
                 }
-                _elapsedTime -= _conversion;
+
+                _elapsedProductionTime += fixed_elapsed_time;
+
+                if (_elapsedProductionTime >= _productionRate)
+                {
+                    _resourceCount++;
+                    _elapsedProductionTime = 0;
+                }
             }
         }
 
         public override void Render()
         {
-            Console.SetCursorPosition((int)GetPosition().GetX(), (int)GetPosition().GetY());
+            Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write($"F[{_stockRessources} ->{_stockProduct}]");
+            Console.Write($"{_renderGraphic}[{_inputCount}->{_resourceCount}]");
             Console.ResetColor();
-
         }
+
+        
     }
-    
+
+        
 }

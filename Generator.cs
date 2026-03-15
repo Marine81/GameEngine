@@ -10,32 +10,46 @@ namespace GameEngine_SaveynMarine
     {
         private float _production;
         private int _ressourceCount = 0;
-        private string OutputCount = "G";
-        
+        private string _renderGraphic = "G";
+        private Vector2 _position = new Vector2(0, 0);
+        private float _elapsedTime;
+
+
         public Generator(float production,GameEngine game_engine) : base(game_engine)
         {
             _production = production;
         }
 
+        public void SetPosition(Vector2 position)
+        {
+            _position = position;
+        }
+        public override void Update(float elapsed_time)
+        {
+
+        }
+        public override void HandleInput(ConsoleKeyInfo player_command)
+        {
+
+        }
+
         public override void FixedUpdate(float fixed_elapsed_time)
         {
-            base.FixedUpdate(fixed_elapsed_time);
+            _elapsedTime += fixed_elapsed_time;
 
             if (_elapsedTime >= _production)
             {
                 _ressourceCount++;
+                _elapsedTime = 0;
             }
-
-            _elapsedTime -= _production;
         }
 
         public override void Render()
         {
-            Console.SetCursorPosition((int)GetPosition().GetX(), (int)GetPosition().GetY());
+            Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"G[{_ressourceCount}]");
+            Console.Write($"G[{_renderGraphic}]");
             Console.ResetColor();
-
         }
     }
 }
