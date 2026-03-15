@@ -11,11 +11,12 @@ namespace GameEngine_SaveynMarine
         private Level _level;
         private string _renderGraphic = "@";
         private float _speed = 10;
+        private Vector2 _position = new Vector2(0, 0);
+        private Vector2 _direction = new Vector2(0, 0);
 
         public Player(GameEngine game_engine, Level level) : base(game_engine)
         {
             _level = level;
-            game_engine.AddGameObject(this);
         }
 
         public override void Render()
@@ -23,28 +24,18 @@ namespace GameEngine_SaveynMarine
             Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
             Console.Write(_renderGraphic);
         }
-       
-        
-        public float GetSpeed()
-        {
-            return _speed;
-        }
 
         public override void Update(float elapsed_time)
         {
-            throw new NotImplementedException();
+           
         }
 
-        public override void FixedUpdate(float elapsed_time)
+        public override void FixedUpdate(float fixed_elapsed_time)
         {
-            Vector2 player_position = GetPosition();
-            Vector2 player_direction = GetDirection();
-            float player_speed = GetSpeed();
-
-            Vector2 new_position = new Vector2(player_position.GetX() + player_direction.GetX() * elapsed_time * player_speed,
-                player_position.GetY() + player_direction.GetY() * elapsed_time * player_speed);
-
-            SetPosition(new_position);
+            Vector2 new_position = new Vector2(
+                _position.GetX() + _direction.GetX() * fixed_elapsed_time * _speed,
+                _position.GetY() + _direction.GetY() * fixed_elapsed_time * _speed
+            );
 
             if (new_position.GetX() < 0)
             {
@@ -52,7 +43,7 @@ namespace GameEngine_SaveynMarine
             }
             else if (new_position.GetX() >= _level.GetXSize())
             {
-                new_position.SetX(_level.GetXSize() - 1);
+                new_position.SetX(Console.WindowWidth - 1);
             }
 
             if (new_position.GetY() < 0)
@@ -61,12 +52,10 @@ namespace GameEngine_SaveynMarine
             }
             else if (new_position.GetY() >= _level.GetYSize())
             {
-                new_position.SetY(_level.GetYSize() - 1);
+                new_position.SetY(Console.WindowHeight - 1);
             }
-
-            SetPosition(new_position);
-
-            SetDirection(new Vector2(0, 0));
+                _position = new_position;
+                _direction = new Vector2(0, 0);
         }
 
         public override void HandleInput(ConsoleKeyInfo player_command)
@@ -75,24 +64,24 @@ namespace GameEngine_SaveynMarine
 
             if (player_command.Key == ConsoleKey.LeftArrow)
             {
-                SetDirection(new Vector2(-1, 0));
+                new_direction = new Vector2(-1, 0);
             }
 
             else if (player_command.Key == ConsoleKey.RightArrow)
             {
-               SetDirection(new Vector2(1, 0));
+                new_direction = new Vector2(1, 0);
             }
 
             else if (player_command.Key == ConsoleKey.UpArrow)
             {
-                SetDirection(new Vector2(0, -1));
+                new_direction = new Vector2(0, -1);
             }
 
             else if (player_command.Key == ConsoleKey.DownArrow)
             {
-                SetDirection(new Vector2(0, 1));
+                new_direction = new Vector2(0, 1);
             }
-            SetDirection(new_direction);
+             _direction = new_direction;
         }
     }
 }
