@@ -11,7 +11,8 @@ namespace GameEngine_SaveynMarine
 {
     public class GameEngine
     {
-       
+        StateMachine _gameFlowStateMachine = new StateMachine();
+
         private List<GameObject> _gameObjectTable = new List<GameObject>();
 
         private List<GameObject> _gameObjectToAddTable = new List<GameObject>();
