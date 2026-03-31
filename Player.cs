@@ -18,6 +18,10 @@ namespace GameEngine_SaveynMarine
         {
             _level = level;
         }
+        public void SetPosition(Vector2 position)
+        {
+            _position = position;
+        }
 
         public override void Render()
         {

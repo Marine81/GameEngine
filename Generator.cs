@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public class Generator : Building
+    public class Generator : GameObject
     {
         private float _production;
         private int _ressourceCount = 0;

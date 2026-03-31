@@ -8,46 +8,45 @@ namespace GameEngine_SaveynMarine
 {
     internal class IngameState : IState
     {
-        StateMachine _stateMachine;
-        GameEngine _gameEngine;
-        public IngameState(StateMachine statemachine) 
-        { }
+        private GameManager _gameManager;
+        private StateMachine _stateMachine;
+        private GameEngine _gameEngine;
+        public IngameState(GameEngine game_engine,StateMachine state_machine, GameManager game_manager) 
+        {
+            _gameEngine = game_engine;
+            _stateMachine = state_machine;
+            _gameManager = game_manager;
+        }
         public void Enter()
         {
-            throw new NotImplementedException();
+            _gameManager.ActivateGameObjects();
         }
 
         public void Exit()
         {
-            throw new NotImplementedException();
+            _gameManager.DeactivateGameObjects();
         }
 
         public void FixedUpdate(float fixed_elapsed_time)
         {
-            throw new NotImplementedException();
         }
 
         public void ProcessInput(ConsoleKeyInfo input)
         {
-            while (Console.KeyAvailable)
+            if (input.Key == ConsoleKey.Escape)
             {
-                ConsoleKeyInfo player_command = Console.ReadKey(true);
-
-                if (player_command.Key == ConsoleKey.Escape)
-                {
-                    _stateMachine.ChangeState(new PauseState(_stateMachine));
-                }
+                _stateMachine.ChangeState(new PauseState(_gameManager, _gameEngine, _stateMachine));
             }
+
         }
 
         public void Render()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Ingame State: Press Esc to pause");
         }
 
         public void Update(float elapsed_time)
-        {
-            throw new NotImplementedException();
-        }
+        { }
+        
     }
 }

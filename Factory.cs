@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public class Factory : Building
+    public class Factory : GameObject
     {
       
         private string _renderGraphic = "F";

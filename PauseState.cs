@@ -8,50 +8,49 @@ namespace GameEngine_SaveynMarine
 {
     internal class PauseState : IState
     {
-        StateMachine _stateMachine;
-        GameEngine _gameEngine;
-        public PauseState(StateMachine _stateMachine) { }
+        private  StateMachine _stateMachine;
+        private GameEngine _gameEngine;
+        private GameManager _gameManager;
+        public PauseState(GameManager game_manager,GameEngine game_engine,StateMachine state_machine) 
+        {
+            _gameEngine = game_engine;
+            _gameManager = game_manager;
+            _stateMachine = state_machine;
+        }
         public void Enter()
         {
-            throw new NotImplementedException();
         }
 
         public void Exit()
         {
-            throw new NotImplementedException();
         }
 
         public void FixedUpdate(float fixed_elapsed_time)
         {
-            throw new NotImplementedException();
         }
 
         public void ProcessInput(ConsoleKeyInfo input)
         {
-            while (Console.KeyAvailable)
+            if (input.Key == ConsoleKey.Enter)
             {
-                ConsoleKeyInfo player_command = Console.ReadKey(true);
-
-                if (player_command.Key == ConsoleKey.Enter)
-                {
-                    _stateMachine.ChangeState(new IngameState(_stateMachine));
-                }
-
-                else if(player_command.Key == ConsoleKey.Q)
-                {
-                    _stateMachine.ChangeState(new MainMenuState(_stateMachine));
-                }
+                _stateMachine.ChangeState(new IngameState(_gameEngine, _stateMachine, _gameManager));
+            }
+            else if (input.Key == ConsoleKey.Q)
+            {
+                _stateMachine.ChangeState(new MainMenuState(_gameEngine, _stateMachine));
             }
         }
 
         public void Render()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Pause Menu");
+            Console.WriteLine("Press Enter to resume the game");
+            Console.WriteLine("Press Q to return to main menu");
+
         }
 
         public void Update(float elapsed_time)
         {
-            throw new NotImplementedException();
         }
     }
 }

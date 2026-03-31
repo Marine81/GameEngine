@@ -8,10 +8,22 @@ namespace GameEngine_SaveynMarine
 {
     public abstract class GameObject
     {
-
+        private GameEngine _gameEngine;
         public GameObject(GameEngine game_engine)
         {
+            _gameEngine = game_engine;
             game_engine.AddGameObject(this);
+        }
+        public virtual void SetActive(bool is_active)
+        {
+            if (is_active)
+            {
+                _gameEngine.AddGameObject(this);
+            }
+            else
+            {
+                _gameEngine.RemoveGameObject(this);
+            }
         }
 
         public abstract void Update(float elapsed_time);

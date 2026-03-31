@@ -8,55 +8,49 @@ namespace GameEngine_SaveynMarine
 {
     internal class MainMenuState : IState
     {
-        StateMachine _stateMachine;
-        GameEngine _gameEngine;
-        public MainMenuState(StateMachine _stateMachine)
+        private StateMachine _stateMachine;
+        private GameEngine _gameEngine;
+        public MainMenuState(GameEngine game_engine,StateMachine state_Machine)
         {
-            
+            _gameEngine = game_engine;
+            _stateMachine = state_Machine;
         }
 
         public void Enter()
         {
-            throw new NotImplementedException();
         }
 
         public void Exit()
         {
-            throw new NotImplementedException();
         }
 
         public void FixedUpdate(float fixed_elapsed_time)
         {
-            throw new NotImplementedException();
         }
 
         public void ProcessInput(ConsoleKeyInfo input)
         {
-            while (Console.KeyAvailable)
+            if (input.Key == ConsoleKey.Enter)
             {
-                ConsoleKeyInfo player_command = Console.ReadKey(true);
-
-                if (player_command.Key == ConsoleKey.Escape)
-                {
-                   // _shouldQuit = true;
-                }
-                else if (player_command.Key == ConsoleKey.Enter)
-                {
-                    _stateMachine.ChangeState(new IngameState(_stateMachine));
-                }
+                _stateMachine.ChangeState(new IngameState(_gameEngine, _stateMachine, new GameManager(_gameEngine)));
+            }
+            else if (input.Key == ConsoleKey.Escape)
+            {
+                _gameEngine.Quit();
             }
         }
 
         public void Render()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Main Menu");
+            Console.WriteLine("Press Enter to start");
+            Console.WriteLine("Press Esc to exit");
         }
 
 
 
         public void Update(float elapsed_time)
         {
-            
         }
     }
 }

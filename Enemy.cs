@@ -83,13 +83,11 @@ namespace GameEngine_SaveynMarine
 
 
         public override void HandleInput(ConsoleKeyInfo player_command)
-        {
-            
+        {  
         }
 
         public override void Update(float elapsed_time)
-        {
-           
+        { 
         }
 
         public override void Render()

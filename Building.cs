@@ -12,9 +12,18 @@ namespace GameEngine_SaveynMarine
         private string _renderGraphic = "B";
         private Vector2 _position = new Vector2(0, 0);
 
-
-        public Building(GameEngine game_engine) : base(game_engine)
+        private readonly StateMachine _stateMachine = new StateMachine();
+        public Building(GameEngine game_engine, int construction_time) : base(game_engine)
         {
+            _stateMachine.SetInitialState(new BuildingUnderConstructionState(_stateMachine, this, construction_time));
+        }
+        public string GetRenderGraphic()
+        {
+            return _renderGraphic;
+        }
+        public Vector2 GetPosition()
+        {
+            return _position;
         }
 
         public void SetPosition(Vector2 position)
@@ -24,7 +33,7 @@ namespace GameEngine_SaveynMarine
 
         public override void FixedUpdate(float fixed_elapsed_time)
         {
-            _elapsedTime += fixed_elapsed_time;
+            _stateMachine.FixedUpdate(fixed_elapsed_time);
         }
 
         public override void HandleInput(ConsoleKeyInfo player_command)
@@ -34,16 +43,12 @@ namespace GameEngine_SaveynMarine
 
         public override void Update(float elapsed_time)
         {
-            
+            _stateMachine.Update(elapsed_time);
         }
 
         public override void Render()
         {
-            Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"{_renderGraphic}[{_elapsedTime:F1}]");
-            Console.ResetColor();
-        
+            _stateMachine.Render();
         }
     }
 }

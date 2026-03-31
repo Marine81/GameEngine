@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal class StateMachine
+    public class StateMachine
     {
         private IState _currentState;
+
 
         public void ChangeState(IState new_state)
         {
@@ -17,24 +18,30 @@ namespace GameEngine_SaveynMarine
             _currentState.Enter();
         }
 
-        public void ProcessInput()
+        public void ProcessInput(ConsoleKeyInfo input)
         {
-
+            _currentState.ProcessInput(input);
         }
 
         public void Update(float elapsed_time)
         {
-
+            _currentState.Update(elapsed_time);
         }
 
         public void Render()
         {
-
+            _currentState.Render();
         }
 
         public void SetInitialState(IState initial_state)
         {
             _currentState = initial_state;
+            _currentState.Render();
         }
+        public void FixedUpdate(float fixed_elapsed_time)
+        {
+            _currentState.FixedUpdate(fixed_elapsed_time);
+        }
+
     }
 }

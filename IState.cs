@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal interface IState
+    public interface IState
     {
         public void Enter();
         public void Exit();

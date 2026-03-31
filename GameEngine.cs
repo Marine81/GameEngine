@@ -11,7 +11,7 @@ namespace GameEngine_SaveynMarine
 {
     public class GameEngine
     {
-        StateMachine _gameFlowStateMachine = new StateMachine();
+        private StateMachine _gameFlowStateMachine = new StateMachine();
 
         private List<GameObject> _gameObjectTable = new List<GameObject>();
 
@@ -26,7 +26,10 @@ namespace GameEngine_SaveynMarine
 
         public void AddGameObject(GameObject game_object)
         {
-            _gameObjectToAddTable.Add(game_object);
+            if (!_gameObjectTable.Contains(game_object))
+            {
+                _gameObjectToAddTable.Add(game_object);
+            }
         }
 
         public void RemoveGameObject(GameObject game_object)
@@ -37,10 +40,11 @@ namespace GameEngine_SaveynMarine
         public void Run()
         {
             _stopwatch.Start();
-            Level currentLevel = new Level(this);
-            new Player(this, currentLevel);
+           
             float lag = 0.0f;
             float last_time = GetCurrentTime();
+
+            _gameFlowStateMachine.SetInitialState(new MainMenuState(this, _gameFlowStateMachine));
 
             while (!_shouldQuit)
             {
@@ -90,17 +94,12 @@ namespace GameEngine_SaveynMarine
             {
                 ConsoleKeyInfo player_command = Console.ReadKey(true);
 
-                if (player_command.Key == ConsoleKey.Escape)
-                {
-                    _shouldQuit = true;
-                }
-                else
-                {
+                _gameFlowStateMachine.ProcessInput(player_command);
+                
                     foreach (GameObject game_object in _gameObjectTable)
                     {
                         game_object.HandleInput(player_command);
                     }
-                }
             }
         }
 
@@ -108,6 +107,7 @@ namespace GameEngine_SaveynMarine
 
         private void FixedUpdate(float fixed_elapsed_time)
         {
+            _gameFlowStateMachine.FixedUpdate(fixed_elapsed_time);
             foreach (GameObject game_object in _gameObjectTable)
             {
                 game_object.FixedUpdate(fixed_elapsed_time);
@@ -118,6 +118,7 @@ namespace GameEngine_SaveynMarine
 
         private void Update(float elapsed_time)
         {
+            _gameFlowStateMachine.Update(elapsed_time);
             foreach (GameObject game_object in _gameObjectTable)
             {
                 game_object.Update(elapsed_time);
@@ -127,6 +128,7 @@ namespace GameEngine_SaveynMarine
         private void Render()
         {
             Console.Clear(); 
+            _gameFlowStateMachine.Render();
             foreach(GameObject game_object in _gameObjectTable)
             {
                 game_object.Render();
@@ -137,6 +139,11 @@ namespace GameEngine_SaveynMarine
         private float GetCurrentTime()
         {
             return _stopwatch.ElapsedMilliseconds / 1000.0f; 
+        }
+
+        public void Quit()
+        {
+            _shouldQuit = true;
         }
     }
 }

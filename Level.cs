@@ -8,10 +8,16 @@ namespace GameEngine_SaveynMarine
 {
     public class Level : GameObject
     {
-        private GameEngine _gameEngine;
+        private readonly GameEngine _gameEngine;
+        private readonly Building _building;
+        private readonly Generator _generator;
+        private readonly Factory _factory;
+
+        private readonly List<Enemy> _enemyTable = new List<Enemy>();
+
         private int _width = Console.WindowWidth;
         private int _height = Console.WindowHeight;
-
+        private int _minHeight = 2;
         private readonly Random _random = new Random();
 
         private float _timer = 0f;
@@ -23,12 +29,14 @@ namespace GameEngine_SaveynMarine
         {
             _gameEngine = game_engine;
        
-            Building building = new Building(_gameEngine);
-            building.SetPosition(new Vector2(10, 10));
-            Generator generator = new Generator(10, _gameEngine);
-            generator.SetPosition(new Vector2(15, 15));
-            Factory factory = new Factory(10, 2, 1, _gameEngine);
-            factory.SetPosition(new Vector2(50, 8));
+            _building= new Building(_gameEngine, _random.Next(5,11));
+            _building.SetPosition(new Vector2(10, 10));
+            
+            _generator = new Generator(10, _gameEngine);
+            _generator.SetPosition(new Vector2(15, 15));
+           
+            _factory = new Factory(10, 2, 1, _gameEngine);
+            _factory.SetPosition(new Vector2(50, 8));
         }
 
         public int GetXSize()
@@ -42,17 +50,17 @@ namespace GameEngine_SaveynMarine
 
         public override void FixedUpdate(float fixed_elapsed_time)
         {
-            if(_currentEnemyCount < _maxEnemyCount)
+            if(_enemyTable.Count < _maxEnemyCount)
             {
                 _timer += fixed_elapsed_time;
 
                 if (_timer >= _timeNextSpawn)
                 {
                     _timer = 0;
-                    Enemy ennemy = new Enemy(_gameEngine, this);
-                    ennemy.SetPosition(new Vector2(_random.Next(0, _width), _height));
+                    Enemy enemy = new Enemy(_gameEngine, this);
+                    enemy.SetPosition(new Vector2(_random.Next(0, _width), _height));
                     _timeNextSpawn = _random.Next(5, 11);
-                    _currentEnemyCount++;
+                    _enemyTable.Add(enemy);
                 }
             }
         }
@@ -65,6 +73,10 @@ namespace GameEngine_SaveynMarine
         {
             return _height;
         }
+        public float GetMinHeight()
+        {
+            return _minHeight;
+        }
 
         public override void HandleInput(ConsoleKeyInfo player_command)
         {
@@ -72,13 +84,26 @@ namespace GameEngine_SaveynMarine
         }
 
         public override void Update(float elapsed_time)
-        {
-            
+        {   
         }
 
         public override void Render()
         {
-           
         }
+
+        public override void SetActive(bool is_active)
+        {
+            base.SetActive(is_active);
+
+            foreach (Enemy enemy in _enemyTable)
+            {
+                enemy.SetActive(is_active);
+            }
+
+            _building.SetActive(is_active);
+            _generator.SetActive(is_active);
+            _factory.SetActive(is_active);
+        }
+
     }
 }
