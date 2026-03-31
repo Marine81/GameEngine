@@ -8,9 +8,14 @@ namespace GameEngine_SaveynMarine
 {
     public abstract class GameObject
     {
+        private List <Component> _componentTable;
+        private List<Component> _componentToAddTable;
+        private string _name;
+
         private GameEngine _gameEngine;
-        public GameObject(GameEngine game_engine)
+        public GameObject(string name,GameEngine game_engine)
         {
+            _name = name;
             _gameEngine = game_engine;
             game_engine.AddGameObject(this);
         }
@@ -23,6 +28,14 @@ namespace GameEngine_SaveynMarine
             else
             {
                 _gameEngine.RemoveGameObject(this);
+            }
+        }
+
+        public void AddComponent(Component component)
+        {
+            if (!_componentTable.Contains(component))
+            {
+                _componentToAddTable.Add(component);
             }
         }
 
