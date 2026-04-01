@@ -22,7 +22,7 @@ namespace GameEngine_SaveynMarine
 
         public TYPE GetComponent<TYPE>() where TYPE : Component
         {
-            for (int component_index = 0, component_index <_componentTable.Count; component_index++)
+            for (int component_index = 0; component_index <_componentTable.Count; component_index++)
             {
                 if (_componentTable[component_index] is TYPE selected_component)
                 {

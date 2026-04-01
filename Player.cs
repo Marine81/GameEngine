@@ -8,7 +8,11 @@ namespace GameEngine_SaveynMarine
 {
     public class Player : GameObject
     {
-        private Level _level;
+        private GameObject _playerGameObject = new GameObject("Player",game_engine);
+        PositionComponent position_component = new PositionComponent(new Vector2(5, 5), _playerGameObject);
+        _playerGameObject.AddComponent(position_component);
+
+        
         private string _renderGraphic = "@";
         private float _speed = 10;
         private Vector2 _position = new Vector2(0, 0);

@@ -8,28 +8,18 @@ namespace GameEngine_SaveynMarine
 {
     public class GameManager
     {
-       
-            private readonly Level _level;
-            private readonly Player _player;
+        private GameObject _levelGameObject = new GameObject("Level", game_engine);
+        private GameObject _playerGameObject = new GameObject("Player", game_engine);
 
-            public GameManager(GameEngine game_engine)
-            {
-                _level = new Level(game_engine);
-                _player = new Player(game_engine, _level);
-                _player.SetPosition(new Vector2(5, 5));
-            }
 
-            public void ActivateGameObjects()
-            {
-                _player.SetActive(true);
-                _level.SetActive(true);
-            }
+        public GameManager(GameEngine game_engine)
+        {
+            LevelComponent level_component = new LevelComponent(_levelGameObject, game_engine);
+            PositionComponent position_component = new PositionComponent(new Vector2(5, 5), _playerGameObject);
+        }
+        
 
-            public void DeactivateGameObjects()
-            {
-                _player.SetActive(false);
-                _level.SetActive(false);
-            }
+            
         }
 
     
