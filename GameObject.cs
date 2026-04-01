@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public abstract class GameObject
+    public class GameObject
     {
         private List <Component> _componentTable;
         private List<Component> _componentToAddTable;
@@ -19,6 +19,19 @@ namespace GameEngine_SaveynMarine
             _gameEngine = game_engine;
             game_engine.AddGameObject(this);
         }
+
+        public TYPE GetComponent<TYPE>() where TYPE : Component
+        {
+            for (int component_index = 0, component_index <_componentTable.Count; component_index++)
+            {
+                if (_componentTable[component_index] is TYPE selected_component)
+                {
+                    return selected_component;
+                }
+            }
+            return null;
+        }
+
         public virtual void SetActive(bool is_active)
         {
             if (is_active)
@@ -39,11 +52,24 @@ namespace GameEngine_SaveynMarine
             }
         }
 
-        public abstract void Update(float elapsed_time);
-        public abstract void FixedUpdate(float fixed_elapsed_time);
+        public  void Update(float elapsed_time)
+        {
 
-        public abstract void Render();
-        public abstract void HandleInput(ConsoleKeyInfo player_command);
+        }
+
+        public  void FixedUpdate(float fixed_elapsed_time)
+        {
+
+        }
+
+        public  void Render()
+        {
+
+        }
+        public  void HandleInput(ConsoleKeyInfo player_command)
+        {
+
+        }
     }
 }
 
