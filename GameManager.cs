@@ -10,7 +10,11 @@ namespace GameEngine_SaveynMarine
     {
         private GameObject _levelGameObject = new GameObject("Level", game_engine);
         private GameObject _playerGameObject = new GameObject("Player", game_engine);
-        _playerGameObject.AddComponent(new RenderComponent(_playerGameObject, "@", position_component));
+        private GameObject _enemy = new GameObject("enemy", game_engine);
+        private GameObject _building = new GameObject("building", game_engine);
+        private GameObject _factory = new GameObject("factory", game_engine);
+        private GameObject _generatot = new GameObject("generator", game_engine);
+        //_playerGameObject.AddComponent(new RenderComponent(_playerGameObject, "@", position_component));
 
         public GameManager(GameEngine game_engine)
         {

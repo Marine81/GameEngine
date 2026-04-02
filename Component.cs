@@ -16,6 +16,8 @@ namespace GameEngine_SaveynMarine
             _gameObject = game_object;
         }
 
+        public abstract void OnEnable();
+        public abstract void OnDisable();
         public abstract void Update(float elapsed_time);
         public abstract void FixedUpdate(float Fixed_elapsed_time);
     }
