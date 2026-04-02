@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    internal class RenderComponent
+    public class RenderComponent
     {
+        private string _renderGraphic;
+        
+        public RenderComponent(GameObject _gameObject, string render_Graphic,PositionComponent position_component) 
+        {
+            _renderGraphic = render_Graphic;
+        }
+       
     }
 }

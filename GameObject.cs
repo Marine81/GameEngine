@@ -18,6 +18,7 @@ namespace GameEngine_SaveynMarine
             _name = name;
             _gameEngine = game_engine;
             game_engine.AddGameObject(this);
+
         }
 
         public TYPE GetComponent<TYPE>() where TYPE : Component

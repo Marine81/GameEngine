@@ -10,7 +10,7 @@ namespace GameEngine_SaveynMarine
     {
         private GameObject _levelGameObject = new GameObject("Level", game_engine);
         private GameObject _playerGameObject = new GameObject("Player", game_engine);
-
+        _playerGameObject.AddComponent(new RenderComponent(_playerGameObject, "@", position_component));
 
         public GameManager(GameEngine game_engine)
         {
@@ -20,7 +20,7 @@ namespace GameEngine_SaveynMarine
         
 
             
-        }
+    }
 
     
 }

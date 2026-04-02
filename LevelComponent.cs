@@ -12,10 +12,11 @@ namespace GameEngine_SaveynMarine
         
         private GameObject _levelGameObject = new GameObject("Level", game_engine);
         private LevelComponent level_component = new LevelComponent(_levelGameObject, game_engine);
-        GameObject _levelGameObject.AddComponent(level_component); 
+        
         public LevelComponent(GameObject game_object,GameEngine game_engine)
         {
             _levelGameObject = game_object;
+            _levelGameObject.AddComponent(level_component);
         }
 
         private readonly GameEngine _gameEngine;

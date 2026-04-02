@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public class PositionComponent
+    public class PositionComponent 
     {
         private GameObject _gameObject;
         public PositionComponent(Vector2 position, GameObject game_object)
