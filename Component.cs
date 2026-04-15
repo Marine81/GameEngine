@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public abstract class Component
+    public abstract class Component : IPrototype<TYPE>
     {
         private bool _isActive = true;
         protected GameObject _gameObject;
@@ -20,5 +20,10 @@ namespace GameEngine_SaveynMarine
         public abstract void OnDisable();
         public abstract void Update(float elapsed_time);
         public abstract void FixedUpdate(float Fixed_elapsed_time);
+
+        public virtual TYPE clone()
+        {
+           
+        }
     }
 }

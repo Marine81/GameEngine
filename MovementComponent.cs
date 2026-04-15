@@ -62,5 +62,16 @@ namespace GameEngine_SaveynMarine
         public override void Update(float elapsed_time)
         {
         }
+
+        public override Component clone(GameObject parent_game_object)
+        {
+            MovementComponent movement_component = parent_game_object.GetComponent<MovementComponent>();
+            if (movement_component == null)
+            {
+                Console.WriteLine("WARNING: movemmentComponent is null");
+            }
+
+            return new AiMovementComponent(parent_game_object, _speed, position_component);
+        }
     }
 }

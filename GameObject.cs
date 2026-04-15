@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public class GameObject : IP
+    public class GameObject : IPrototype<GameObject>
     {
         private List <Component> _componentTable;
         private List<Component> _componentToAddTable;
@@ -70,6 +70,20 @@ namespace GameEngine_SaveynMarine
         public  void HandleInput(ConsoleKeyInfo player_command)
         {
 
+        }
+
+        public override Component Clone(GameObject parent_game_object)
+        {
+            PositionComponent position_component = parent_game_object.GetComponent<PositionComponent>();
+           
+
+            if(position_component == null)
+            {
+                Console.WriteLine("positionComponent is null");
+            }
+            
+            return new PositionComponent(new Vector2(position_component.GetX(), position_component.GetY()), parent_game_object);
+           
         }
     }
 }
