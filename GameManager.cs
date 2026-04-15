@@ -6,24 +6,28 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public class GameManager
+    public class GameManager : IPrototype<TYPE>
     {
-        private GameObject _levelGameObject = new GameObject("Level", game_engine);
-        private GameObject _playerGameObject = new GameObject("Player", game_engine);
-        private GameObject _enemy = new GameObject("enemy", game_engine);
-        private GameObject _building = new GameObject("building", game_engine);
-        private GameObject _factory = new GameObject("factory", game_engine);
-        private GameObject _generatot = new GameObject("generator", game_engine);
+        
         //_playerGameObject.AddComponent(new RenderComponent(_playerGameObject, "@", position_component));
 
         public GameManager(GameEngine game_engine)
         {
             LevelComponent level_component = new LevelComponent(_levelGameObject, game_engine);
             PositionComponent position_component = new PositionComponent(new Vector2(5, 5), _playerGameObject);
-        }
-        
 
-            
+            GameObject _levelGameObject = new GameObject("Level", game_engine);
+             GameObject _playerGameObject = new GameObject("Player", game_engine);
+            GameObject _enemy = new GameObject("enemy", game_engine);
+            GameObject _building = new GameObject("building", game_engine);
+            GameObject _factory = new GameObject("factory", game_engine);
+            GameObject _generatot = new GameObject("generator", game_engine);
+    }
+
+        public TYPE clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     

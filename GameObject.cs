@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine_SaveynMarine
 {
-    public class GameObject
+    public class GameObject : IP
     {
         private List <Component> _componentTable;
         private List<Component> _componentToAddTable;

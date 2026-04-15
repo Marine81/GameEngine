@@ -49,6 +49,16 @@ namespace GameEngine_SaveynMarine
             _direction = new Vector2(0, 0);
         }
 
+        public override void OnDisable()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OnEnable()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Update(float elapsed_time)
         {
         }
