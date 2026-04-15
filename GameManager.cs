@@ -8,11 +8,13 @@ namespace GameEngine_SaveynMarine
 {
     public class GameManager : IPrototype<TYPE>
     {
-        
+        private EntityDatabase _entityDatabase;
         //_playerGameObject.AddComponent(new RenderComponent(_playerGameObject, "@", position_component));
 
         public GameManager(GameEngine game_engine)
         {
+            _entityDatabase = new EntityDatabase();
+
             LevelComponent level_component = new LevelComponent(_levelGameObject, game_engine);
             PositionComponent position_component = new PositionComponent(new Vector2(5, 5), _playerGameObject);
 
