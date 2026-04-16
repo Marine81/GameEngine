@@ -28,7 +28,7 @@ namespace GameEngine_SaveynMarine
 
         public TYPE clone()
         {
-            throw new NotImplementedException();
+            
         }
     }
 

@@ -10,7 +10,7 @@ namespace GameEngine_SaveynMarine
     public class LevelComponent : Component
     {
         
-        private GameObject _levelGameObject = new GameObject("Level", game_engine);
+        
         private LevelComponent level_component = new LevelComponent(_levelGameObject, game_engine);
         
         public LevelComponent(GameObject game_object,GameEngine game_engine)
